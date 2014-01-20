@@ -420,3 +420,29 @@ construite comme suit:
 .. code-block:: sql
 
    WHERE user.id IN (SELECT user_id FROM admin)
+
+Rechercher une valeur dans une table liée
+.........................................
+Dans cet exemple, on recherche les contacts d'un établissement. Les contacts sont 
+affichés dans un onglet de la table établissement.
+
+La recherche porte sur le nom et le prénom des contacts.
+
+Il faut ajouter à la requête standard la table de contacts puis paramétrer le critère
+de recherche :
+
+.. code-block:: php
+
+   $table .= " LEFT JOIN ".DB_PREFIXE."contact
+        ON contact.etablissement=etablissement.etablissement ";
+
+Dans le code des critères de recherche : 
+
+.. code-block:: php
+
+   $champs['contact'] = array(
+      'table' => 'contact',
+      'colonne' => array('nom','prenom','courriel'),
+      'type' => 'text',
+      'libelle' => _('contact')
+   );
